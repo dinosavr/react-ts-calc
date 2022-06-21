@@ -1,5 +1,5 @@
-.root {
-  color: rgba(162, 42, 173, 0.2);
-  font-size: 48px;
-  text-align: center;
-}
+@import "./normalize.scss";
+@import "./variables.scss";
+@import "./fonts.scss";
+@import "./global.scss";
+@import "./transition.scss";

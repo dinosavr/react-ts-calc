@@ -1,0 +1,59 @@
+html {
+    font-size: $font-size-html; /* font-size 1em = (62.5/100) * 16px = 10px*/
+  }
+  
+  body {
+    box-sizing: border-box;
+    min-width: $mobile320;
+  
+    font-size: $font-size;
+    font-family: $font-family;
+  
+    & div {
+      box-sizing: border-box;
+    }
+
+    background: rgb(255,161,161);
+    background: linear-gradient(90deg, rgba(255,161,161,1) 0%, rgba(255,124,124,1) 100%);
+  }
+  .wrapper {
+    width: 100%;
+    max-width: $desktopWrapper;
+    margin: 0 auto;
+  
+    box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.3); 
+  }
+  .clear {
+    clear: both;
+    overflow: hidden;
+  }
+  .line-break {
+    width: 100%;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  .m-fadeOut {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    transition: visibility 0s linear 1000ms, opacity 1000ms !important;
+  }
+  .m-fadeIn {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: visibility 0s linear 0s, opacity 1000ms !important;
+  }
+  .anchor-link {
+    position: relative;
+    top: -100px;
+  }
+  .no-wrap {
+    white-space: nowrap;
+  }
+  .m-auto{
+    margin: 0 auto;
+  }
+  .d-block{
+    display: block;
+  }

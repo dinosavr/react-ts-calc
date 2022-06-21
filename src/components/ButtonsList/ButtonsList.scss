@@ -1,0 +1,16 @@
+// @import '../../ui/colors.scss';
+// @import '../../ui/fonts.scss';
+
+.btn-list {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  &>.wrapper-btn {
+    flex: 1 1 25%;
+    margin: 15px 0px;
+  }
+}
+

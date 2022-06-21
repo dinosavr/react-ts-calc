@@ -1,0 +1,20 @@
+// @import '../../ui/colors.scss';
+// @import '../../ui/fonts.scss';
+
+.calcWrapper {
+  border-radius: 20px;
+  outline: none;
+  background-color: #faa8a8;
+  max-width: 620px;
+  margin: 30px auto;
+  padding: 40px 30px;
+}
+
+.calcBody {
+  border-radius: 20px;
+  outline: none;
+  background-color: #3469b8;
+  padding: 24px 45px 45px;
+  background: rgb(255,161,161);
+  background: linear-gradient(91deg, #285290 0%, #3a76cf 100%);
+}
