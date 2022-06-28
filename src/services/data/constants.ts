@@ -1,8 +1,19 @@
-import { IButtonProps } from './models';
+import * as React from 'react';
+import { IButtonProps} from './models';
+
+let initialStr ='';
+const  handleClick = (value: string): void => {
+  console.log('Замена дефолтного handleClick');
+}
+
+const simpleText = () => {
+  console.log('Просто текст');
+
+}
 
 export const calcButtonsData: IButtonProps[] = [
-  { text: 'С'},
-  { text: 'S'},
+  { text: 'С', onClick: simpleText},
+  { text: 'S', onClick: simpleText},
   { text: '%'},
   { text: '/'},
   { text: '7'},
@@ -45,3 +56,4 @@ export enum calcActionButtons {
   COMMA = ',',
   RESULT = '=',
 }
+
