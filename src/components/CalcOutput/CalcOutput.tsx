@@ -1,15 +1,18 @@
 import './CalcOutput.scss';
 import * as React from 'react';
+import { ThemeContext } from '../../context/context';
 import { CalcOutputProps } from './models';
-import Button from '../buttons/Button/Button';
+import { useContext } from 'react';
 
+// static contextType = ThemeContext;
 const CalcBody: React.FC<CalcOutputProps> = ({}) => {
+  const contextType = useContext(ThemeContext);
   return (
     <div className="calcOutput">
       <div className="example-output">
-        <span className="example">(56 + 45 - 26) * 23</span>
+        <span className="example">{contextType.expr}</span>
       </div>
-      <div className="result">600</div>
+      <div className="result">{contextType.answer}</div>
     </div>
   );
 };
