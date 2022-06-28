@@ -4,6 +4,7 @@ import { AppContext } from '../../context/context';
 import { CalcOutputProps } from './models';
 import { useContext } from 'react';
 
+// static contextType = ThemeContext;
 const CalcBody: React.FC<CalcOutputProps> = ({}) => {
   const contextType = useContext(AppContext);
   const { expr, answer } = contextType;
