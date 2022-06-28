@@ -1,38 +1,7 @@
-import * as React from 'react';
 import { IButtonProps} from './models';
 
-let initialStr ='';
-const  handleClick = (value: string): void => {
-  console.log('Замена дефолтного handleClick');
-}
-
-const simpleText = () => {
-  console.log('Просто текст');
-
-}
-
-export const calcButtonsData: IButtonProps[] = [
-  { text: 'С', onClick: simpleText},
-  { text: 'S', onClick: simpleText},
-  { text: '%'},
-  { text: '/'},
-  { text: '7'},
-  { text: '8'},
-  { text: '9'},
-  { text: 'x'},
-  { text: '4'},
-  { text: '5'},
-  { text: '6'},
-  { text: '-'},
-  { text: '1'},
-  { text: '2'},
-  { text: '3'},
-  { text: '+'},
-  { text: '00'},
-  { text: '0'},
-  { text: ','},
-  { className: 'btn--selected', text: '='},
-];
+// export const INITIAL_EXPR = '(2.4 x (46 - 26)) x 5';
+export const INITIAL_EXPR = '2 * 3 - 2';
 
 export enum calcNumButtons {
   NUM_0 = '0',
@@ -47,13 +16,41 @@ export enum calcNumButtons {
   NUM_9 = '9',
 }
 export enum calcActionButtons {
+  CANCEL = 'C',
+  SQRT = 'S',
   PERCENT = '%',
   DIVISION = '/',
-  MULTIPLICATION = 'X',
+  MULTIPLICATION = 'x',
   SUBTRACTION = '-',
   SUMMATION = '+',
   DOUBLE_ZERO = '00',
   COMMA = ',',
   RESULT = '=',
 }
+
+export const {NUM_0, NUM_1, NUM_2, NUM_3, NUM_4, NUM_5, NUM_6, NUM_7, NUM_8, NUM_9} = calcNumButtons;
+export const {CANCEL, SQRT, PERCENT, DIVISION, MULTIPLICATION, SUBTRACTION, SUMMATION, DOUBLE_ZERO, COMMA, RESULT} = calcActionButtons;
+
+export const calcButtonsData: IButtonProps[] = [
+  { text: CANCEL},
+  { text: SQRT},
+  { text: PERCENT},
+  { text: DIVISION},
+  { text: NUM_7},
+  { text: NUM_8},
+  { text: NUM_9},
+  { text: MULTIPLICATION},
+  { text: NUM_4},
+  { text: NUM_5},
+  { text: NUM_6},
+  { text: SUBTRACTION},
+  { text: NUM_1},
+  { text: NUM_2},
+  { text: NUM_3},
+  { text: SUMMATION},
+  { text: DOUBLE_ZERO},
+  { text: NUM_0},
+  { text: COMMA},
+  { className: 'btn--selected', text: RESULT},
+];
 

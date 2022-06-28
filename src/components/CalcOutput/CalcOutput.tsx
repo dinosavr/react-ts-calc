@@ -1,18 +1,18 @@
 import './CalcOutput.scss';
 import * as React from 'react';
-import { ThemeContext } from '../../context/context';
+import { AppContext } from '../../context/context';
 import { CalcOutputProps } from './models';
 import { useContext } from 'react';
 
-// static contextType = ThemeContext;
 const CalcBody: React.FC<CalcOutputProps> = ({}) => {
-  const contextType = useContext(ThemeContext);
+  const contextType = useContext(AppContext);
+  const { expr, answer } = contextType;
   return (
     <div className="calcOutput">
       <div className="example-output">
-        <span className="example">{contextType.expr}</span>
+        <span className="example">{expr}</span>
       </div>
-      <div className="result">{contextType.answer}</div>
+      <div className="result">{answer}</div>
     </div>
   );
 };

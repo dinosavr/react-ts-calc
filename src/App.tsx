@@ -2,16 +2,16 @@ import * as React from 'react';
 import { useState } from 'react';
 import './App.scss';
 import CalcBody from './components/CalcBody/CalcBody';
-import { ThemeContext } from './context/context';
-
-
+import { AppContext } from './context/context';
+import { calc } from './services/calc';
+import { INITIAL_EXPR } from './services/data/constants';
 
 
 function App() {
-  const [expr, setExpr] = useState<string>('(56 - 26) * 3');
-  const [answer, setAnswer] = useState<string>('90');
+  const [expr, setExpr] = useState<string>(INITIAL_EXPR);
+  const [answer, setAnswer] = useState<string>(calc(INITIAL_EXPR));
   return (
-    <ThemeContext.Provider value={{
+    <AppContext.Provider value={{
       expr,
       setExpr,
       answer,
@@ -20,7 +20,7 @@ function App() {
       <main className="App">
         <CalcBody></CalcBody>
       </main>
-    </ThemeContext.Provider>
+    </AppContext.Provider>
   );
 }
 
