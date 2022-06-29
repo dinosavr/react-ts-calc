@@ -1,6 +1,5 @@
 import './Button.scss';
 import * as React from 'react';
-// import classNames from 'classnames';
 import { ButtonProps } from './models';
 
 const Button: React.FC<ButtonProps> = ({ children, id, className, value, innerHtml, onClick }) => {

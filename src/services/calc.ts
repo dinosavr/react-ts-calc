@@ -21,8 +21,6 @@ const CONSTANTS = {
     const sub = CONSTANTS.minusSymbol
     const negativeSymbol = CONSTANTS.negativeSymbol
 
-    console.log(expr)
-  
     checkPairOfBrackets(expr)
   
     while (!isExprHasOperation(expr)) {
@@ -118,7 +116,6 @@ const CONSTANTS = {
     }
   
     [res] = exprArr
-    console.log(res);
     return (parseFloat(res) < 0) ? `${negativeSymbol}${-res}` : res
   }
   

@@ -7,13 +7,17 @@ import {
   calcMathOperation,
   CANCEL,
   COMMA,
+  DIVISION,
+  MULTIPLICATION,
   NUM_0,
   PERCENT,
   RESULT,
   SQRT,
+  SUBTRACTION,
+  SUMMATION,
 } from '../../services/data/constants';
 import { IButtonProps } from '../../services/data/models';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../../context/context';
 import { calc } from '../../services/calc';
 
@@ -22,7 +26,25 @@ const ButtonsList = () => {
   const { expr, setExpr, setAnswer } = contextType;
   let exprInCalc = expr;
 
-  const actionsBtn = (value: string): void => {
+  // 5,2 - 2,288 -> 2,9200000000000004 // bug
+  const keyDownHandler = (e: KeyboardEvent) => {
+    const isNumber = !isNaN(Number(e.key));
+    isNumber && handlerClick(e.key);
+    e.key === 'Enter' && handlerClick(RESULT);
+    (e.key === 'Escape' || e.key.toLowerCase() === 'c') && handlerClick(CANCEL);
+    e.key.toLowerCase() === 's' && handlerClick(SQRT);
+    e.key.toLowerCase() === '%' && handlerClick(PERCENT);
+    e.key.toLowerCase() === '/' && handlerClick(DIVISION);
+    e.key.toLowerCase() === '*' && handlerClick(MULTIPLICATION);
+    e.key.toLowerCase() === '-' && handlerClick(SUBTRACTION);
+    e.key.toLowerCase() === '+' && handlerClick(SUMMATION);
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', keyDownHandler);
+  }, []);
+
+  const handlerClick = (value: string): void => {
     const isNumber = !isNaN(Number(value));
     const exprInCalcArr = exprInCalc.trim().split(' ');
     const tmpExprInCalcArr = [...exprInCalcArr];
@@ -34,18 +56,23 @@ const ButtonsList = () => {
 
     if (value === CANCEL) expr !== String(NUM_0) ? setExpr(NUM_0) : setAnswer(NUM_0);
     else if (value === RESULT) setAnswer(calc(exprInCalc));
-    else if (isNumber)
+    else if (isNumber && lastEl.slice(-1) !== ')')
       setExpr(exprInCalc === String(NUM_0) ? value : (exprInCalc += value));
-    else if (value === COMMA) !isHasOperation && !isLastElHasComma && setExpr((exprInCalc += value));
+    else if (value === COMMA)
+      !isHasOperation && !isLastElHasComma && setExpr((exprInCalc += value));
     else if (value === SQRT) !isHasOperation && setExpr(`${SQRT}(${exprInCalc})`);
     else if (value === PERCENT) {
       if (!isHasOperation) {
         let percentRes = String((parseFloat(baseOfPercent) / 100) * parseFloat(lastEl));
-        exprInCalc = `${[...tmpExprInCalcArr, baseOfPercent, lastOperationMayBe, percentRes].join(' ')}`;
+        exprInCalc = `${[
+          ...tmpExprInCalcArr,
+          baseOfPercent,
+          lastOperationMayBe,
+          percentRes,
+        ].join(' ')}`;
         setExpr(exprInCalc);
       }
     } else if (!isNumber) {
-      console.log(isHasOperation, exprInCalcArr);
       !isHasOperation
         ? (exprInCalc += ` ${value} `)
         : (exprInCalc = `${exprInCalcArr
@@ -64,7 +91,7 @@ const ButtonsList = () => {
               className={`btn d-block m-auto ${className ? className : ''}`}
               value={text}
               innerHtml={innerHtml}
-              onClick={onClick ? onClick : actionsBtn}>
+              onClick={onClick ? onClick : handlerClick}>
               {text}
             </Button>
           </Wrapper>

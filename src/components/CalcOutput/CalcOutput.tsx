@@ -15,12 +15,18 @@ const CalcBody: React.FC<CalcOutputProps> = ({}) => {
   }
   let correctAnswer = answer;
   if(correctAnswer === 'NaN') correctAnswer = 'Error'
+
+  const classBySize = (strLength: Number) => {
+         let textSizeCorrect = 'result'
+         if(strLength > 16) textSizeCorrect +=' result-fs-40'; 
+         return textSizeCorrect;
+  }
   return (
     <div className="calcOutput">
       <div className="example-output">
         <span className="example" dangerouslySetInnerHTML={getInnerHtml()}></span>
       </div>
-      <div className="result">{correctAnswer}</div>
+      <div className={classBySize(correctAnswer.length)}>{correctAnswer}</div>
     </div>
   );
 };
