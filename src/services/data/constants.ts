@@ -1,6 +1,6 @@
 import { IButtonProps} from './models';
 
-export const INITIAL_EXPR = '2 * 3 - 2';
+export const INITIAL_EXPR = '5,2 - 2,2';
 
 export enum calcNumButtons {
   NUM_0 = '0',

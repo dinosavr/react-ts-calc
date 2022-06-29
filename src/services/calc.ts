@@ -13,13 +13,15 @@ const CONSTANTS = {
   const {brackets, addSymbol, minusSymbol, multiSymbol, divSymbol, negativeSymbol} = CONSTANTS;
   const [openBracket, closeBracket] = brackets;
 
-  export var calc = function (expression: string) {
+  export var calc = function (expression: string) {    
     let expr = `${expression}`
     expr = removeSpaces(expr)
     expr = replaceIncorrectSymbol(expr)
     expr = removeKeyWords(expr)
     const sub = CONSTANTS.minusSymbol
     const negativeSymbol = CONSTANTS.negativeSymbol
+
+    console.log(expr)
   
     checkPairOfBrackets(expr)
   
@@ -116,6 +118,7 @@ const CONSTANTS = {
     }
   
     [res] = exprArr
+    console.log(res);
     return (parseFloat(res) < 0) ? `${negativeSymbol}${-res}` : res
   }
   

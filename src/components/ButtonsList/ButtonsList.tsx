@@ -7,13 +7,10 @@ import {
   calcMathOperation,
   CANCEL,
   COMMA,
-  DOUBLE_ZERO,
   NUM_0,
   PERCENT,
   RESULT,
   SQRT,
-  SUBTRACTION,
-  SUMMATION,
 } from '../../services/data/constants';
 import { IButtonProps } from '../../services/data/models';
 import { useContext } from 'react';
@@ -33,12 +30,13 @@ const ButtonsList = () => {
     const lastOperationMayBe = tmpExprInCalcArr.pop();
     const baseOfPercent = tmpExprInCalcArr.pop();
     const isHasOperation = calcMathOperation.indexOf(lastEl) > -1;
+    const isLastElHasComma = lastEl.indexOf(COMMA) > -1;
 
     if (value === CANCEL) expr !== String(NUM_0) ? setExpr(NUM_0) : setAnswer(NUM_0);
     else if (value === RESULT) setAnswer(calc(exprInCalc));
     else if (isNumber)
       setExpr(exprInCalc === String(NUM_0) ? value : (exprInCalc += value));
-    else if (value === COMMA) !isHasOperation && setExpr((exprInCalc += value));
+    else if (value === COMMA) !isHasOperation && !isLastElHasComma && setExpr((exprInCalc += value));
     else if (value === SQRT) !isHasOperation && setExpr(`${SQRT}(${exprInCalc})`);
     else if (value === PERCENT) {
       if (!isHasOperation) {
