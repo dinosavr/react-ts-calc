@@ -4,6 +4,7 @@ import Button from '../buttons/Button/Button';
 import Wrapper from '../Wrapper';
 import {
   calcButtonsData,
+  calcMathOperation,
   CANCEL,
   COMMA,
   DOUBLE_ZERO,
@@ -24,18 +25,34 @@ const ButtonsList = () => {
   const { expr, setExpr, setAnswer } = contextType;
   let exprInCalc = expr;
 
-  const getTypeButton = (value: string): void => {
+  const actionsBtn = (value: string): void => {
     const isNumber = !isNaN(Number(value));
-    if (value === CANCEL) (expr !== String(NUM_0)) ? setExpr(NUM_0) : setAnswer(NUM_0);
+    const exprInCalcArr = exprInCalc.trim().split(' ');
+    const tmpExprInCalcArr = [...exprInCalcArr];
+    const lastEl = tmpExprInCalcArr.pop();
+    const lastOperationMayBe = tmpExprInCalcArr.pop();
+    const baseOfPercent = tmpExprInCalcArr.pop();
+    const isHasOperation = calcMathOperation.indexOf(lastEl) > -1;
+
+    if (value === CANCEL) expr !== String(NUM_0) ? setExpr(NUM_0) : setAnswer(NUM_0);
     else if (value === RESULT) setAnswer(calc(exprInCalc));
-    else if (isNumber) {
-      if(exprInCalc === String(NUM_0)) exprInCalc = '';
-      setExpr((exprInCalc += value));
-    }
-    else if (value === COMMA) setExpr((exprInCalc += value));
-    else if (value === SQRT) setExpr(`${SQRT}(${exprInCalc})`);
-    else {
-      if (!isNumber) exprInCalc += ` ${value} `;
+    else if (isNumber)
+      setExpr(exprInCalc === String(NUM_0) ? value : (exprInCalc += value));
+    else if (value === COMMA) !isHasOperation && setExpr((exprInCalc += value));
+    else if (value === SQRT) !isHasOperation && setExpr(`${SQRT}(${exprInCalc})`);
+    else if (value === PERCENT) {
+      if (!isHasOperation) {
+        let percentRes = String((parseFloat(baseOfPercent) / 100) * parseFloat(lastEl));
+        exprInCalc = `${[...tmpExprInCalcArr, baseOfPercent, lastOperationMayBe, percentRes].join(' ')}`;
+        setExpr(exprInCalc);
+      }
+    } else if (!isNumber) {
+      console.log(isHasOperation, exprInCalcArr);
+      !isHasOperation
+        ? (exprInCalc += ` ${value} `)
+        : (exprInCalc = `${exprInCalcArr
+            .splice(0, exprInCalcArr.length - 1)
+            .join(' ')} ${value} `);
       setExpr(exprInCalc);
     }
   };
@@ -49,7 +66,7 @@ const ButtonsList = () => {
               className={`btn d-block m-auto ${className ? className : ''}`}
               value={text}
               innerHtml={innerHtml}
-              onClick={onClick ? onClick : getTypeButton}>
+              onClick={onClick ? onClick : actionsBtn}>
               {text}
             </Button>
           </Wrapper>

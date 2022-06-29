@@ -29,6 +29,7 @@ export enum calcActionButtons {
 
 export const {NUM_0, NUM_1, NUM_2, NUM_3, NUM_4, NUM_5, NUM_6, NUM_7, NUM_8, NUM_9} = calcNumButtons;
 export const {CANCEL, SQRT, PERCENT, DIVISION, MULTIPLICATION, SUBTRACTION, SUMMATION, DOUBLE_ZERO, COMMA, RESULT} = calcActionButtons;
+export const calcMathOperation = [String(DIVISION), String(MULTIPLICATION), String(SUBTRACTION), String(SUMMATION)];
 
 export const calcButtonsData: IButtonProps[] = [
   { text: CANCEL},
