@@ -8,5 +8,6 @@ export interface ButtonProps {
   disabled?: boolean;
   active?: boolean;
   submit?: boolean;
+  innerHtml?: string;
   onClick?: (value: string) => void;
 }

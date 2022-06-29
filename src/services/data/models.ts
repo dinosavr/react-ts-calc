@@ -3,5 +3,6 @@ export interface IButtonProps {
   className?: string;
   text?: string;
   priority?: number;
+  innerHtml?: string;
   onClick?: (value: string) => void;
 }

@@ -2,7 +2,18 @@ import './ButtonsList.scss';
 import * as React from 'react';
 import Button from '../buttons/Button/Button';
 import Wrapper from '../Wrapper';
-import { calcButtonsData, CANCEL, COMMA,  NUM_0, PERCENT, RESULT, SUBTRACTION, SUMMATION } from '../../services/data/constants';
+import {
+  calcButtonsData,
+  CANCEL,
+  COMMA,
+  DOUBLE_ZERO,
+  NUM_0,
+  PERCENT,
+  RESULT,
+  SQRT,
+  SUBTRACTION,
+  SUMMATION,
+} from '../../services/data/constants';
 import { IButtonProps } from '../../services/data/models';
 import { useContext } from 'react';
 import { AppContext } from '../../context/context';
@@ -10,25 +21,21 @@ import { calc } from '../../services/calc';
 
 const ButtonsList = () => {
   const contextType = useContext(AppContext);
-  const { expr, setExpr, answer, setAnswer } = contextType;
+  const { expr, setExpr, setAnswer } = contextType;
   let exprInCalc = expr;
-  let answerInCalc = answer;
 
   const getTypeButton = (value: string): void => {
-    if (value === CANCEL) {
-      exprInCalc = NUM_0;
-      setExpr(exprInCalc);
-    } else if (value === RESULT) {
-      answerInCalc = calc(exprInCalc) 
-      setAnswer(answerInCalc)
-    } 
-    else if (Number(value) || value === COMMA) {
-      exprInCalc += value;
-      setExpr(exprInCalc);
-    }         
+    const isNumber = !isNaN(Number(value));
+    if (value === CANCEL) (expr !== String(NUM_0)) ? setExpr(NUM_0) : setAnswer(NUM_0);
+    else if (value === RESULT) setAnswer(calc(exprInCalc));
+    else if (isNumber) {
+      if(exprInCalc === String(NUM_0)) exprInCalc = '';
+      setExpr((exprInCalc += value));
+    }
+    else if (value === COMMA) setExpr((exprInCalc += value));
+    else if (value === SQRT) setExpr(`${SQRT}(${exprInCalc})`);
     else {
-      if(isNaN(Number(value)) ) value = ` ${value} `;
-      exprInCalc += value;
+      if (!isNumber) exprInCalc += ` ${value} `;
       setExpr(exprInCalc);
     }
   };
@@ -36,11 +43,12 @@ const ButtonsList = () => {
   return (
     <div className="btn-list">
       {calcButtonsData.map(
-        ({ className, text, onClick }: IButtonProps, index: Number) => (
+        ({ className, text, innerHtml, onClick }: IButtonProps, index: Number) => (
           <Wrapper key={`${index}`} className="wrapper-btn">
             <Button
               className={`btn d-block m-auto ${className ? className : ''}`}
               value={text}
+              innerHtml={innerHtml}
               onClick={onClick ? onClick : getTypeButton}>
               {text}
             </Button>

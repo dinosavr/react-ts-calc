@@ -1,6 +1,5 @@
 import { IButtonProps} from './models';
 
-// export const INITIAL_EXPR = '(2.4 x (46 - 26)) x 5';
 export const INITIAL_EXPR = '2 * 3 - 2';
 
 export enum calcNumButtons {
@@ -17,7 +16,7 @@ export enum calcNumButtons {
 }
 export enum calcActionButtons {
   CANCEL = 'C',
-  SQRT = 'S',
+  SQRT = 'Sqrt',
   PERCENT = '%',
   DIVISION = '/',
   MULTIPLICATION = 'x',
@@ -33,7 +32,7 @@ export const {CANCEL, SQRT, PERCENT, DIVISION, MULTIPLICATION, SUBTRACTION, SUMM
 
 export const calcButtonsData: IButtonProps[] = [
   { text: CANCEL},
-  { text: SQRT},
+  { className: 'btn--symbol', text: SQRT, innerHtml: '&Sqrt;'},
   { text: PERCENT},
   { text: DIVISION},
   { text: NUM_7},

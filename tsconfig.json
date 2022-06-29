@@ -7,5 +7,9 @@
       "jsx": "react",
       "allowJs": true,
       "moduleResolution": "Node",
+      "lib": [
+        "es5", "es6", "dom",
+        "ES2021.String"
+      ]
     }
   }

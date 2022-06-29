@@ -1,4 +1,4 @@
-import { DIVISION, MULTIPLICATION, SUBTRACTION, SUMMATION } from "./data/constants";
+import { DIVISION, MULTIPLICATION, SQRT, SUBTRACTION, SUMMATION } from "./data/constants";
 
 const CONSTANTS = {
     brackets: ['(', ')'],
@@ -17,6 +17,7 @@ const CONSTANTS = {
     let expr = `${expression}`
     expr = removeSpaces(expr)
     expr = replaceIncorrectSymbol(expr)
+    expr = removeKeyWords(expr)
     const sub = CONSTANTS.minusSymbol
     const negativeSymbol = CONSTANTS.negativeSymbol
   
@@ -48,8 +49,8 @@ const CONSTANTS = {
       if (!isBracket) noBracketsExp = noBracketsExp + expr.charAt(i)
   
       if (expr.charAt(i) === closeBracket) {
-        const resSimpleExp = countSimpleExpr(noBracketsExp)
-        newExpr = newExpr.slice(0, -1) + resSimpleExp + expr.slice(i + 1)
+        const countSqrt = Math.sqrt(parseFloat(countSimpleExpr(noBracketsExp)))
+        newExpr = newExpr.slice(0, -1) + countSqrt + expr.slice(i + 1)
         noBracketsExp = ''
         return newExpr
       }
@@ -148,6 +149,10 @@ const CONSTANTS = {
   
   function removeSpaces (expr: string) {
     return expr.replace(/\s/g, '')
+  }
+
+  function removeKeyWords (expr: string) {
+    return expr.split(SQRT).join('');
   }
 
   function replaceIncorrectSymbol (expr: string) {
